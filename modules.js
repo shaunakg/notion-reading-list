@@ -16,27 +16,31 @@ const fetch = require("cross-fetch");
 let dont_update = [];
 
 const fetchAndUpdate = async () => {
+
+    console.log("Current don't-update list is", dont_update)
+    console.log("Restart server to clear.")
+  
     const databaseId = process.env.DATABASE_ID;
 
     const queryResponse = await notion.databases.query({
         database_id: databaseId,
+        page_size: 100,
+        filter: {
+          or: [
+            {
+              property: "Title",
+              rich_text: {
+                contains: ";"
+              }
+            }
+          ]
+        }
     });
 
     const relevant_results = queryResponse.results.filter(
-        (i) => {
-            if (!i.properties.Title) {
-                return false;
-            }
-
-            if (!(i.properties.Title.title[0].plain_text || "").endsWith(";")) {
-                return false;
-            }
-
-            if (dont_update.includes(i.id)) {
-                return false;
-            }
-        }
+        (i) => !dont_update.includes(i.id)
     );
+  
     console.log(
         `Checked database, found ${relevant_results.length} items to update.`
     );
