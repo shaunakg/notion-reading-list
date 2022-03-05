@@ -1,4 +1,3 @@
-
 // Note: Each check might take up to 5 seconds depending on how many books you have to update.
 // Making this value too low might break the program.
 const CHECK_EVERY_SECONDS = 3;
@@ -31,6 +30,8 @@ const fetchAndUpdate = async () => {
     console.log(
         `Checked database, found ${relevant_results.length} items to update.`
     );
+
+    const all_updated = [];
 
     for (i of relevant_results) {
         gbook_query =
@@ -75,7 +76,7 @@ const fetchAndUpdate = async () => {
                     multi_select: book.volumeInfo.authors
                         .filter((x) => x)
                         .map((x) => ({
-                            name: x,
+                            name: x.replace(",", ""),
                         })),
                 },
 
@@ -83,7 +84,7 @@ const fetchAndUpdate = async () => {
                     multi_select: (book.volumeInfo.categories || [])
                         .filter((x) => x)
                         .map((x) => ({
-                            name: x,
+                            name: x.replace(",", ""),
                         })),
                 },
 
@@ -140,13 +141,12 @@ const fetchAndUpdate = async () => {
 
         try {
             await notion.pages.update(updateOptions);
+            all_updated.push(i.properties.Title.title[0].plain_text);
         } catch (e) {
             console.error(`Error on ${i.id}: [${e.status}] ${e.message}`);
 
             if (e.status == 409) {
-                console.log(
-                    "Saving conflict, scheduling retry in 3 seconds"
-                );
+                console.log("Saving conflict, scheduling retry in 3 seconds");
                 setTimeout(async () => {
                     try {
                         console.log(`Retrying ${i.id}`);
@@ -165,6 +165,8 @@ const fetchAndUpdate = async () => {
 
         console.log("Updated " + i.properties.Title.title[0].plain_text);
     }
+
+    return all_updated;
 };
 
 module.exports.fetchAndUpdate = fetchAndUpdate;
