@@ -23,9 +23,19 @@ const fetchAndUpdate = async () => {
     });
 
     const relevant_results = queryResponse.results.filter(
-        (i) =>
-            (i.properties?.Title?.title[0]?.plain_text || "").endsWith(";") &&
-            !dont_update.includes(i.id)
+        (i) => {
+            if (!i.properties.Title) {
+                return false;
+            }
+
+            if (!(i.properties.Title.title[0].plain_text || "").endsWith(";")) {
+                return false;
+            }
+
+            if (dont_update.includes(i.id)) {
+                return false;
+            }
+        }
     );
     console.log(
         `Checked database, found ${relevant_results.length} items to update.`
@@ -119,7 +129,7 @@ const fetchAndUpdate = async () => {
             },
         };
 
-        if (book.volumeInfo?.imageLinks?.thumbnail) {
+        if (book.volumeInfo.imageLinks) {
             updateOptions.icon = {
                 external: {
                     url: book.volumeInfo.imageLinks.thumbnail,
