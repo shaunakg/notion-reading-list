@@ -1,5 +1,5 @@
 
-// This is an image proxy service for the Google Books API to get proxy the cover images.
+// This is an image proxy service for the Google Books API's book cover functionality.
 
 // Example usage: https://readinglist-cover-proxy.srg.id.au/A2wJAAAAQAAJ.jpg
 
