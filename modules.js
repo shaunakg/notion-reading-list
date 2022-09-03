@@ -136,13 +136,13 @@ const fetchAndUpdate = async () => {
         if (book.volumeInfo.imageLinks) {
             updateOptions.icon = {
                 external: {
-                    url: book.volumeInfo.imageLinks.thumbnail,
+                    url: `https://readinglist-cover-proxy.srg.id.au/${book.id}.jpg`,
                 },
             };
 
             updateOptions.cover = {
                 external: {
-                    url: book.volumeInfo.imageLinks.thumbnail,
+                    url: `https://readinglist-cover-proxy.srg.id.au/${book.id}.jpg`,
                 },
             };
         }
