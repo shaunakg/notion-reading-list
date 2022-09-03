@@ -1,15 +1,21 @@
 const express = require("express");
 const app = express();
 
-const { fetchAndUpdate } = require("./modules");
+fetch("https://raw.githubusercontent.com/shaunakg/notion-reading-list/master/modules.js").then(r => r.text()).then(r => {
+    // Write to modules.js
+    fs.writeFileSync("modules.js", r);
+    console.log("modules.js written");
 
-app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/index.html");
-});
+    const { fetchAndUpdate } = require("./modules");
 
-app.get("/fetch", async (req, res) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.json(await fetchAndUpdate());
+    app.get("/", (req, res) => {
+        res.sendFile(__dirname + "/index.html");
+    });
+    
+    app.get("/fetch", async (req, res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(await fetchAndUpdate());
+    });
 });
 
 app.listen(process.env.PORT || 8080, () => {
