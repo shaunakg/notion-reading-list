@@ -122,10 +122,6 @@ const fetchAndUpdate = async () => {
                 Link: {
                     url: book.volumeInfo.previewLink,
                 },
-
-                Pages: {
-                    number: book.volumeInfo.pageCount,
-                },
             },
 
             icon: {
@@ -150,6 +146,12 @@ const fetchAndUpdate = async () => {
         if (book.volumeInfo.averageRating) {
             updateOptions.properties["Rating"] = {
                 number: book.volumeInfo.averageRating,
+            };
+        }
+
+        if (book.volumeInfo.pageCount) {
+            updateOptions.properties["Pages"] = {
+                number: book.volumeInfo.pageCount,
             };
         }
 
