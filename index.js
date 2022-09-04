@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const fetch = require('cross-fetch');
 
 fetch("https://raw.githubusercontent.com/shaunakg/notion-reading-list/master/modules.js").then(r => r.text()).then(r => {
     // Write to modules.js
