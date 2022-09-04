@@ -1,5 +1,7 @@
 
 # Notion Reading List - Backend
+### This code is designed to be used with the guide, available [here](https://srg.id.au/notion-reading-list/).
+
 Hi! If you're looking at this text from the repl.it page, you can continue with the steps of the guide, namely:
 1. Filling in the `DATABASE_ID` and `NOTION_API_KEY` variables
 2. Starting the server
