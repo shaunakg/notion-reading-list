@@ -22,8 +22,8 @@ async function main() {
       });
   }
 
-  if (process.env.AUTO_FETCH) {
-    setInterval(fetchAndUpdate, process.env.AUTO_FETCH);
+  if (process.env.AUTO_FETCH_INTERVAL) {
+    fetchAndUpdate();
   }
 
   app.get("/", (_req, res) => {

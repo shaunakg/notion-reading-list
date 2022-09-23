@@ -166,6 +166,9 @@ const fetchAndUpdate = async () => {
     console.log("Updated " + i.properties.Title.title[0].plain_text);
   }
 
+  if (process.env.AUTO_FETCH_INTERVAL) {
+    setTimeout(fetchAndUpdate, process.env.AUTO_FETCH_INTERVAL);
+  }
   return all_updated;
 };
 
