@@ -116,7 +116,7 @@ const fetchAndUpdate = async () => {
       },
     };
 
-    if (book.volumeInfo.imageLinks) {
+    if (isbn) {
       updateOptions.icon = {
         external: {
           url: `https://covers.openlibrary.org/b/isbn/${isbn}-S.jpg`,
