@@ -56,6 +56,9 @@ const fetchAndUpdate = async () => {
     }
 
     const book = j.items[0];
+    const isbn = book.volumeInfo.industryIdentifiers.find((i) =>
+      ["ISBN_10", "ISBN_13"].includes(i.type)
+    )?.identifier;
 
     let updateOptions = {
       page_id: i.id,
