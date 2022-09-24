@@ -175,4 +175,45 @@ const fetchAndUpdate = async () => {
   return all_updated;
 };
 
-module.exports.fetchAndUpdate = fetchAndUpdate;
+const insertCustomPage = async (properties) => {
+  const page = await notion.pages.create({
+    parent: {
+      database_id: process.env.DATABASE_ID,
+    },
+    properties: properties,
+  });
+
+  return page; 
+}
+
+const fetchPage = async (pageId) => {
+  const page = await notion.pages.retrieve({
+    page_id: pageId,
+  });
+
+  return page;
+}
+
+const fetchProperty = async (pageId, propertyId) => {
+  const property = await notion.pages.properties.retrieve({
+    page_id: pageId,
+    property_id: propertyId,
+  });
+
+  return property;
+}
+
+const deletePage = async (pageId) => {
+  const page = await notion.pages.update({
+    page_id: pageId,
+    archived: true,
+  });
+}
+
+module.exports = {
+  fetchAndUpdate,
+  insertCustomPage,
+  fetchPage,
+  fetchProperty,
+  deletePage,
+}

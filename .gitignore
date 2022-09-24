@@ -1,1 +1,6 @@
 .env
+.config
+.cache
+.replit
+replit.nix
+.upm
