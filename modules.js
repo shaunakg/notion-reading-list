@@ -104,7 +104,7 @@ const fetchAndUpdate = async () => {
         },
 
         Link: {
-          url: book.volumeInfo.previewLink,
+          url: `https://openlibrary.org/isbn/${isbn}`,
         },
       },
 
@@ -116,13 +116,13 @@ const fetchAndUpdate = async () => {
     if (book.volumeInfo.imageLinks) {
       updateOptions.icon = {
         external: {
-          url: `https://readinglist-cover-proxy.srg.id.au/${book.id}.jpg`,
+          url: `https://covers.openlibrary.org/b/isbn/${isbn}-S.jpg`,
         },
       };
 
       updateOptions.cover = {
         external: {
-          url: `https://readinglist-cover-proxy.srg.id.au/${book.id}.jpg`,
+          url: `https://covers.openlibrary.org/b/isbn/${isbn}-M.jpg`,
         },
       };
     }
